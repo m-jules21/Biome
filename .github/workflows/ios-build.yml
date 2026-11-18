@@ -13,6 +13,18 @@ jobs:
   build:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
-      - name: Build for iOS Simulator
-        run: xcodebuild -project Biome/Biome.xcodeproj -scheme Biome -sdk iphonesimulator -configuration Debug CODE_SIGNING_ALLOWED=NO build
+      - uses: actions/checkout@v5
+      - name: Build for iPhone
+        run: xcodebuild -project Biome/Biome.xcodeproj -scheme Biome -destination 'generic/platform=iOS' -configuration Release -derivedDataPath build CODE_SIGNING_ALLOWED=NO build
+      - name: Package IPA
+        run: |
+          mkdir -p package/Payload
+          cp -R build/Build/Products/Release-iphoneos/Biome.app package/Payload/
+          cd package
+          zip -r ../Biome.ipa Payload
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: Biome-ipa
+          path: Biome.ipa
+          if-no-files-found: error
