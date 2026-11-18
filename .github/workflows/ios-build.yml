@@ -16,4 +16,3 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build for iOS Simulator
         run: xcodebuild -project Biome/Biome.xcodeproj -scheme Biome -sdk iphonesimulator -configuration Debug CODE_SIGNING_ALLOWED=NO build
-
