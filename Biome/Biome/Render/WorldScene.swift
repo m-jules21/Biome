@@ -28,7 +28,7 @@ final class WorldScene: SKScene, UIGestureRecognizerDelegate {
     private var minZoom: CGFloat = 0.5
     private var maxZoom: CGFloat = 3.0
 
-    init(size: CGSize = CGSize(width: 400, height: 800)) {
+    override init(size: CGSize = CGSize(width: 400, height: 800)) {
         super.init(size: size)
         scaleMode = .resizeFill
         anchorPoint = .zero
@@ -400,3 +400,4 @@ final class WorldScene: SKScene, UIGestureRecognizerDelegate {
         return texture
     }
 }
+
