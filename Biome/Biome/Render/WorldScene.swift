@@ -395,10 +395,11 @@ final class WorldScene: SKScene, UIGestureRecognizerDelegate {
                 cg.fillEllipse(in: CGRect(x: 4, y: 4, width: 32, height: 32))
             }
         }
-        let texture = SKTexture(cgImage: image)
-        texture.filteringMode = .linear
+        let texture = SKTexture(image: image)
+        texture.filteringMode = SKTextureFilteringMode.linear
         return texture
     }
 }
+
 
 
