@@ -96,7 +96,7 @@ final class WorldScene: SKScene, UIGestureRecognizerDelegate {
         node.position = .zero
         node.zPosition = 0
         if let image = GroundTexture.image(for: world, phase: model.eco.dayPhase) {
-            let texture = SKTexture(image: image)
+            let texture = SKTexture(cgImage: image)
             texture.filteringMode = .nearest
             node.texture = texture
         }
@@ -170,7 +170,7 @@ final class WorldScene: SKScene, UIGestureRecognizerDelegate {
     private func refreshGround() {
         guard let model, let ground else { return }
         guard let image = GroundTexture.image(for: model.eco.world, phase: model.eco.dayPhase) else { return }
-        let texture = SKTexture(image: image)
+        let texture = SKTexture(cgImage: image)
         texture.filteringMode = .nearest
         ground.texture = texture
     }
@@ -195,7 +195,7 @@ final class WorldScene: SKScene, UIGestureRecognizerDelegate {
                 animalLayer.addChild(node)
             }
             node.position = CGPoint(x: CGFloat(animal.x), y: CGFloat(animal.y))
-            let body = cell * (1.15 + animal.genome.size * 0.85)
+            let body = cell * (1.15 + CGFloat(animal.genome.size) * 0.85)
             node.size = CGSize(width: body, height: body)
             node.zRotation = CGFloat(animal.heading)
             let saturation: CGFloat = animal.species == .carnivore ? 0.85 : 0.55
@@ -237,7 +237,7 @@ final class WorldScene: SKScene, UIGestureRecognizerDelegate {
         }
         selectionRing.isHidden = false
         selectionRing.position = CGPoint(x: CGFloat(selected.x), y: CGFloat(selected.y))
-        let radius = CGFloat(Tuning.cellSize) * (1.6 + selected.genome.size)
+        let radius = CGFloat(Tuning.cellSize) * (1.6 + CGFloat(selected.genome.size))
         selectionRing.path = CGPath(ellipseIn: CGRect(x: -radius, y: -radius, width: radius * 2, height: radius * 2), transform: nil)
         selectionRing.strokeColor = selected.species == .carnivore
             ? UIColor(red: 1, green: 0.45, blue: 0.35, alpha: 1)
@@ -395,9 +395,10 @@ final class WorldScene: SKScene, UIGestureRecognizerDelegate {
                 cg.fillEllipse(in: CGRect(x: 4, y: 4, width: 32, height: 32))
             }
         }
-        let texture = SKTexture(image: image)
+        let texture = SKTexture(cgImage: image)
         texture.filteringMode = .linear
         return texture
     }
 }
+
 
